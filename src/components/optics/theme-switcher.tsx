@@ -38,11 +38,10 @@ const themes: ThemeOption[] = [
   },
 ];
 
-export interface ThemeSwitcherProps
-  extends Omit<
-    ComponentPropsWithoutRef<"div">,
-    "onChange" | "defaultValue" | "value"
-  > {
+export interface ThemeSwitcherProps extends Omit<
+  ComponentPropsWithoutRef<"div">,
+  "onChange" | "defaultValue" | "value"
+> {
   value?: Theme;
   defaultValue?: Theme;
   onChange?: (value: Theme) => void;

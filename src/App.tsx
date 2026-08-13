@@ -1,24 +1,23 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
+import { useNavigation } from "./store/navigation-store";
+
+import Welcome from "./pages/welcome/page";
+import Home from "./pages/home/page";
+
 import "./App.css";
-import { Button } from "./components/ui/button";
-import Welcome from "./pages/welcome";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const current = useNavigation((state) => state.current);
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+  switch (current.name) {
+    case "welcome":
+      return <Welcome />;
+
+    case "home":
+      return <Home />;
+
+    default:
+      return null;
   }
-
-  return (
-    <>
-      <Welcome />
-    </>
-  );
 }
 
 export default App;

@@ -106,8 +106,7 @@ export function CenterMorphModalTrigger({
 
   const child = children as ReactElement<Record<string, unknown>>;
   const childOnClick = child.props.onClick as
-    | ((event: React.MouseEvent<HTMLElement>) => void)
-    | undefined;
+    ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
 
   return cloneElement(child, {
     id: context.triggerId,
@@ -134,8 +133,7 @@ export function CenterMorphModalClose({
 
   const child = children as ReactElement<Record<string, unknown>>;
   const childOnClick = child.props.onClick as
-    | ((event: React.MouseEvent<HTMLElement>) => void)
-    | undefined;
+    ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
 
   return cloneElement(child, {
     onClick: (event: React.MouseEvent<HTMLElement>) => {
@@ -169,8 +167,7 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
 
-const CENTER_FOLDED_CLIP =
-  "inset(48% 48% 48% 48% round 30px)";
+const CENTER_FOLDED_CLIP = "inset(48% 48% 48% 48% round 30px)";
 const CENTER_OPEN_CLIP = "inset(0% 0% 0% 0% round 30px)";
 
 // Complex clip-path strings can snap when a spring resolves its final distance.
@@ -272,100 +269,98 @@ export function CenterMorphModalContent({
               ref={overlayRef}
               className="pointer-events-none fixed inset-0 z-[100]"
             >
-          <motion.button
-            type="button"
-            aria-label="Dismiss modal"
-            tabIndex={-1}
-            disabled={!dismissible}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{ pointerEvents: isPresent ? "auto" : "none" }}
-            transition={{
-              duration: reduce ? 0.1 : 0.28,
-              ease: EASE_OUT,
-            }}
-            onClick={() => context.setOpen(false)}
-            className={cn(
-              "pointer-events-auto absolute inset-0 h-full w-full cursor-default bg-background/10 backdrop-blur-sm",
-              backdropClassName,
-            )}
-          />
-
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-y-auto p-4 drop-shadow-2xl">
-            {/* Drop-shadow reads the clipped child's alpha, so depth follows the
-                unfolding silhouette without introducing another panel layer. */}
-            <div className="flex w-full flex-col items-center py-8">
-              <motion.div
-                ref={panelRef}
-                id={context.contentId}
-                role="dialog"
-                aria-modal="true"
-                aria-label={ariaLabel}
-                aria-describedby={ariaDescribedBy}
+              <motion.button
+                type="button"
+                aria-label="Dismiss modal"
                 tabIndex={-1}
-                initial={
-                  reduce
-                    ? { opacity: 0, clipPath: CENTER_OPEN_CLIP }
-                    : { opacity: 1, clipPath: CENTER_FOLDED_CLIP }
-                }
-                animate={{
-                  opacity: 1,
-                  clipPath: CENTER_OPEN_CLIP,
-                }}
-                exit={
-                  reduce
-                    ? {
-                        opacity: 0,
-                        clipPath: CENTER_OPEN_CLIP,
-                      }
-                    : {
-                        opacity: 1,
-                        clipPath: CENTER_FOLDED_CLIP,
-                      }
-                }
+                disabled={!dismissible}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 style={{ pointerEvents: isPresent ? "auto" : "none" }}
-                transition={
-                  reduce
-                    ? { duration: 0.14, ease: EASE_OUT }
-                    : CENTER_UNFOLD_TRANSITION
-                }
+                transition={{
+                  duration: reduce ? 0.1 : 0.28,
+                  ease: EASE_OUT,
+                }}
+                onClick={() => context.setOpen(false)}
                 className={cn(
-                  "pointer-events-auto relative w-full max-w-[26rem] origin-center overflow-hidden rounded-[30px] border border-border bg-background will-change-[clip-path]",
-                  className,
+                  "pointer-events-auto absolute inset-0 h-full w-full cursor-default bg-background/10 backdrop-blur-sm",
+                  backdropClassName,
                 )}
-              >
-                {children}
+              />
 
-                {showCloseButton ? (
-                  <motion.button
-                    type="button"
-                    aria-label={closeButtonLabel}
-                    onClick={() => context.setOpen(false)}
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-y-auto p-4 drop-shadow-2xl">
+                {/* Drop-shadow reads the clipped child's alpha, so depth follows the
+                unfolding silhouette without introducing another panel layer. */}
+                <div className="flex w-full flex-col items-center py-8">
+                  <motion.div
+                    ref={panelRef}
+                    id={context.contentId}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={ariaLabel}
+                    aria-describedby={ariaDescribedBy}
+                    tabIndex={-1}
                     initial={
                       reduce
-                        ? { opacity: 0 }
-                        : { opacity: 0, scale: 0.8 }
+                        ? { opacity: 0, clipPath: CENTER_OPEN_CLIP }
+                        : { opacity: 1, clipPath: CENTER_FOLDED_CLIP }
                     }
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{
-                      opacity: 0,
-                      scale: reduce ? 1 : 0.88,
-                      transition: { duration: 0.1, ease: EASE_OUT },
+                    animate={{
+                      opacity: 1,
+                      clipPath: CENTER_OPEN_CLIP,
                     }}
-                    transition={{
-                      delay: reduce ? 0 : 0.16,
-                      duration: reduce ? 0.12 : 0.2,
-                      ease: EASE_OUT,
-                    }}
-                    className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground/[0.05] text-muted-foreground transition-colors hover:bg-foreground/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    exit={
+                      reduce
+                        ? {
+                            opacity: 0,
+                            clipPath: CENTER_OPEN_CLIP,
+                          }
+                        : {
+                            opacity: 1,
+                            clipPath: CENTER_FOLDED_CLIP,
+                          }
+                    }
+                    style={{ pointerEvents: isPresent ? "auto" : "none" }}
+                    transition={
+                      reduce
+                        ? { duration: 0.14, ease: EASE_OUT }
+                        : CENTER_UNFOLD_TRANSITION
+                    }
+                    className={cn(
+                      "pointer-events-auto relative w-full max-w-[26rem] origin-center overflow-hidden rounded-[30px] border border-border bg-background will-change-[clip-path]",
+                      className,
+                    )}
                   >
-                    <X className="h-4 w-4" aria-hidden="true" />
-                  </motion.button>
-                ) : null}
-              </motion.div>
-            </div>
-          </div>
+                    {children}
+
+                    {showCloseButton ? (
+                      <motion.button
+                        type="button"
+                        aria-label={closeButtonLabel}
+                        onClick={() => context.setOpen(false)}
+                        initial={
+                          reduce ? { opacity: 0 } : { opacity: 0, scale: 0.8 }
+                        }
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{
+                          opacity: 0,
+                          scale: reduce ? 1 : 0.88,
+                          transition: { duration: 0.1, ease: EASE_OUT },
+                        }}
+                        transition={{
+                          delay: reduce ? 0 : 0.16,
+                          duration: reduce ? 0.12 : 0.2,
+                          ease: EASE_OUT,
+                        }}
+                        className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground/[0.05] text-muted-foreground transition-colors hover:bg-foreground/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      >
+                        <X className="h-4 w-4" aria-hidden="true" />
+                      </motion.button>
+                    ) : null}
+                  </motion.div>
+                </div>
+              </div>
             </div>
           )}
         </PresencePointerGate>

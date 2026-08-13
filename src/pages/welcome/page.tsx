@@ -1,20 +1,26 @@
-import { Button } from "../components/ui/button";
-import { ShimmerTextFlip } from "../components/grootstudio/shimmer-text-flip";
+import { Button } from "../../components/ui/button";
+import { ShimmerTextFlip } from "../../components/grootstudio/shimmer-text-flip";
 import { motion } from "motion/react";
 import {
   CenterMorphModal,
   CenterMorphModalContent,
   CenterMorphModalTrigger,
-} from "../components/motion/center-morph-modal";
+} from "../../components/motion/center-morph-modal";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../components/motion/select";
+} from "../../components/motion/select";
 import { useEffect, useState } from "react";
-import { ThemeSwitcher } from "../components/optics/theme-switcher";
+import { ThemeSwitcher } from "../../components/optics/theme-switcher";
+import {
+  getPreferences,
+  savePreferences,
+  type Direction,
+} from "../../storage/settings";
+import { useNavigation } from "../../store/navigation-store";
 
 const text = [
   "Think Clearly.",
@@ -28,6 +34,24 @@ type Theme = "system" | "light" | "dark";
 export default function Welcome() {
   const [direction, setDirection] = useState<"ltr" | "rtl">("ltr");
   const [theme, setTheme] = useState<Theme>("system");
+
+  const navigate = useNavigation((state) => state.navigate);
+
+  const [preferences, setPreferences] = useState(getPreferences());
+
+  const updatePreference = <K extends keyof typeof preferences>(
+    key: K,
+    value: (typeof preferences)[K],
+  ) => {
+    const updated = {
+      ...preferences,
+      [key]: value,
+    };
+
+    setPreferences(updated);
+    savePreferences(updated);
+    setDirection(updated.direction);
+  };
 
   useEffect(() => {
     const root = document.documentElement;
@@ -117,9 +141,8 @@ export default function Welcome() {
                     id="glownote-personalization-description"
                     className="mt-3 text-sm leading-relaxed text-muted-foreground"
                   >
-                    Welcome. Before you start, customize GlowNote to suit
-                    your preferences. You can change these settings anytime
-                    later.
+                    Welcome. Before you start, customize GlowNote to suit your
+                    preferences. You can change these settings anytime later.
                   </p>
 
                   <div className="mt-7 space-y-5 border-y border-border py-5">
@@ -131,7 +154,7 @@ export default function Welcome() {
                       <Select
                         value={direction}
                         onValueChange={(value) =>
-                          setDirection(value as "ltr" | "rtl")
+                          updatePreference("direction", value as Direction)
                         }
                       >
                         <SelectTrigger className="w-full">
@@ -161,7 +184,14 @@ export default function Welcome() {
                     Your preferences will be saved locally on this device.
                   </p>
 
-                  <Button className="mt-7 h-11 w-full rounded-full">
+                  <Button
+                    onClick={() => {
+                      navigate({
+                        name: "home",
+                      });
+                    }}
+                    className="mt-7 h-11 w-full rounded-full"
+                  >
                     Continue
                   </Button>
                 </div>
