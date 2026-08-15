@@ -3,7 +3,6 @@ import {
   Clock,
   Plus,
   RotateCcwClock,
-  Search,
 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import {
@@ -11,6 +10,8 @@ import {
   CardContent,
   CardHeader,
 } from "../../components/ui/card";
+import { GooeyInput } from "../../components/ui/gooey-input";
+
 
 const recentNotes = [
   {
@@ -77,15 +78,11 @@ export default function Home() {
           </div>
 
           <div className="flex gap-2">
-            <Button variant="outline" className="gap-2">
-              <Search className="h-4 w-4" />
-           
-            </Button>
-
-            <Button className="gap-2">
-              <Plus className="h-4 w-4" />
-             
-            </Button>
+             <GooeyInput placeholder="Search..." />
+              
+              <Button className={"flex h-10  relative cursor-pointer items-center justify-center gap-2 rounded-full px-4 text-sm font-medium outline-none transition-[color,box-shadow] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50"}>
+                <Plus />
+              </Button>
           </div>
         </div>
 
