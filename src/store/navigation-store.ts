@@ -1,6 +1,6 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-export type Route = { name: "welcome" } | { name: "home" } | {name :"editor"};
+export type Route = { name: 'welcome' } | { name: 'home' } | { name: 'editor' };
 
 interface NavigationStore {
   current: Route;
@@ -14,8 +14,8 @@ interface NavigationStore {
 }
 
 export const useNavigation = create<NavigationStore>((set) => ({
-  current: { name: "welcome" },
-  history: [{ name: "welcome" }],
+  current: { name: 'welcome' },
+  history: [{ name: 'welcome' }],
   historyIndex: 0,
 
   navigate: (route) =>

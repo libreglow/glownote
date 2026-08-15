@@ -1,7 +1,7 @@
-import { getCurrentWindow } from "@tauri-apps/api/window";
-import { Minus, Square, X } from "lucide-react";
-import { Button } from "../ui/button";
-import { GradientText } from "../grootstudio/gradient-text-fill";
+import { getCurrentWindow } from '@tauri-apps/api/window';
+import { Minus, Square, X } from 'lucide-react';
+import { Button } from '../ui/button';
+import { GradientText } from '../grootstudio/gradient-text-fill';
 const appWindow = getCurrentWindow();
 
 export function TitleBar() {
@@ -14,7 +14,7 @@ export function TitleBar() {
       <div className="flex h-full">
         <Button
           type="button"
-          variant={"link"}
+          variant={'link'}
 
           onClick={() => appWindow.minimize()}
           className="flex h-full w-12 items-center justify-center hover:bg-muted"
@@ -24,7 +24,7 @@ export function TitleBar() {
 
         <Button
           type="button"
-          variant={"link"}
+          variant={'link'}
 
           onClick={() => appWindow.toggleMaximize()}
           className="flex h-full w-12 items-center justify-center hover:bg-muted"
@@ -34,7 +34,7 @@ export function TitleBar() {
 
         <Button
           type="button"
-          variant={"link"}
+          variant={'link'}
           onClick={() => appWindow.close()}
           className="flex h-full w-12 items-center justify-center hover:bg-destructive hover:text-destructive-foreground"
         >

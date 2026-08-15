@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -36,7 +36,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             transition={{
               duration: 0.6,
               ease: [0.16, 1, 0.3, 1],
-              opacity: { duration: 0.4 }
+              opacity: { duration: 0.4 },
             }}
             className="relative w-full max-w-135 backdrop-blur-2xl rounded-[32px] p-5 sm:p-6 shadow-2xl z-50 my-auto
                        bg-white border-[6px] sm:border-12 border-[#F2F2F2]

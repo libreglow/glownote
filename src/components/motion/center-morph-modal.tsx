@@ -1,13 +1,13 @@
-"use client";
+'use client';
 // beui.dev/components/motion/center-morph-modal
 
-import { X } from "lucide-react";
+import { X } from 'lucide-react';
 import {
   AnimatePresence,
   motion,
   useIsPresent,
   useReducedMotion,
-} from "motion/react";
+} from 'motion/react';
 import {
   cloneElement,
   createContext,
@@ -21,10 +21,10 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { createPortal } from "react-dom";
-import { EASE_OUT } from "../../lib/ease";
-import { cn } from "../../lib/utils";
+} from 'react';
+import { createPortal } from 'react-dom';
+import { EASE_OUT } from '../../lib/ease';
+import { cn } from '../../lib/utils';
 
 type CenterMorphModalContextValue = {
   open: boolean;
@@ -101,7 +101,7 @@ export interface CenterMorphModalTriggerProps {
 export function CenterMorphModalTrigger({
   children,
 }: CenterMorphModalTriggerProps) {
-  const context = useCenterMorphModalContext("CenterMorphModalTrigger");
+  const context = useCenterMorphModalContext('CenterMorphModalTrigger');
   if (!isValidElement(children)) return children;
 
   const child = children as ReactElement<Record<string, unknown>>;
@@ -114,9 +114,9 @@ export function CenterMorphModalTrigger({
       childOnClick?.(event);
       if (!event.defaultPrevented) context.setOpen(!context.open);
     },
-    "aria-haspopup": "dialog",
-    "aria-expanded": context.open,
-    "aria-controls": context.open ? context.contentId : undefined,
+    'aria-haspopup': 'dialog',
+    'aria-expanded': context.open,
+    'aria-controls': context.open ? context.contentId : undefined,
   });
 }
 
@@ -128,7 +128,7 @@ export interface CenterMorphModalCloseProps {
 export function CenterMorphModalClose({
   children,
 }: CenterMorphModalCloseProps) {
-  const context = useCenterMorphModalContext("CenterMorphModalClose");
+  const context = useCenterMorphModalContext('CenterMorphModalClose');
   if (!isValidElement(children)) return children;
 
   const child = children as ReactElement<Record<string, unknown>>;
@@ -159,16 +159,16 @@ export interface CenterMorphModalContentProps {
 }
 
 const FOCUSABLE_SELECTOR = [
-  "a[href]",
-  "button:not([disabled])",
-  "input:not([disabled])",
-  "select:not([disabled])",
-  "textarea:not([disabled])",
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
   '[tabindex]:not([tabindex="-1"])',
-].join(",");
+].join(',');
 
-const CENTER_FOLDED_CLIP = "inset(48% 48% 48% 48% round 30px)";
-const CENTER_OPEN_CLIP = "inset(0% 0% 0% 0% round 30px)";
+const CENTER_FOLDED_CLIP = 'inset(48% 48% 48% 48% round 30px)';
+const CENTER_OPEN_CLIP = 'inset(0% 0% 0% 0% round 30px)';
 
 // Complex clip-path strings can snap when a spring resolves its final distance.
 // Keep the radius constant so the whole duration reads as surface unfolding,
@@ -200,11 +200,11 @@ export function CenterMorphModalContent({
   ariaDescribedBy,
   dismissible = true,
   showCloseButton = true,
-  closeButtonLabel = "Close modal",
+  closeButtonLabel = 'Close modal',
   className,
   backdropClassName,
 }: CenterMorphModalContentProps) {
-  const context = useCenterMorphModalContext("CenterMorphModalContent");
+  const context = useCenterMorphModalContext('CenterMorphModalContent');
   const reduce = useReducedMotion() ?? false;
   const [mounted, setMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -216,7 +216,7 @@ export function CenterMorphModalContent({
     if (!context.open) return;
 
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
 
     const focusFrame = requestAnimationFrame(() => {
       const [firstFocusable] = getFocusableElements(overlayRef.current);
@@ -224,13 +224,13 @@ export function CenterMorphModalContent({
     });
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && dismissible) {
+      if (event.key === 'Escape' && dismissible) {
         event.preventDefault();
         context.setOpen(false);
         return;
       }
 
-      if (event.key !== "Tab") return;
+      if (event.key !== 'Tab') return;
       const focusable = getFocusableElements(overlayRef.current);
       if (focusable.length === 0) {
         event.preventDefault();
@@ -249,10 +249,10 @@ export function CenterMorphModalContent({
       }
     };
 
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
     return () => {
       cancelAnimationFrame(focusFrame);
-      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = previousOverflow;
       document.getElementById(context.triggerId)?.focus();
     };
@@ -277,14 +277,14 @@ export function CenterMorphModalContent({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                style={{ pointerEvents: isPresent ? "auto" : "none" }}
+                style={{ pointerEvents: isPresent ? 'auto' : 'none' }}
                 transition={{
                   duration: reduce ? 0.1 : 0.28,
                   ease: EASE_OUT,
                 }}
                 onClick={() => context.setOpen(false)}
                 className={cn(
-                  "pointer-events-auto absolute inset-0 h-full w-full cursor-default bg-background/10 backdrop-blur-sm",
+                  'pointer-events-auto absolute inset-0 h-full w-full cursor-default bg-background/10 backdrop-blur-sm',
                   backdropClassName,
                 )}
               />
@@ -321,14 +321,14 @@ export function CenterMorphModalContent({
                             clipPath: CENTER_FOLDED_CLIP,
                           }
                     }
-                    style={{ pointerEvents: isPresent ? "auto" : "none" }}
+                    style={{ pointerEvents: isPresent ? 'auto' : 'none' }}
                     transition={
                       reduce
                         ? { duration: 0.14, ease: EASE_OUT }
                         : CENTER_UNFOLD_TRANSITION
                     }
                     className={cn(
-                      "pointer-events-auto relative w-full max-w-[26rem] origin-center overflow-hidden rounded-[30px] border border-border bg-background will-change-[clip-path]",
+                      'pointer-events-auto relative w-full max-w-[26rem] origin-center overflow-hidden rounded-[30px] border border-border bg-background will-change-[clip-path]',
                       className,
                     )}
                   >

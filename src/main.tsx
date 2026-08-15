@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { ThemeProvider } from "./components/theme/theme-provider";
-import { TitleBar } from "./components/modules/title-bar";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { ThemeProvider } from './components/theme/theme-provider';
+import { TitleBar } from './components/modules/title-bar';
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <div className="flex h-screen w-full flex-col overflow-hidden">

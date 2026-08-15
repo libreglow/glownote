@@ -1,7 +1,7 @@
-const STORAGE_KEY = "glownote-preferences";
+const STORAGE_KEY = 'glownote-preferences';
 
-export type Theme = "system" | "light" | "dark";
-export type Direction = "ltr" | "rtl";
+export type Theme = 'system' | 'light' | 'dark';
+export type Direction = 'ltr' | 'rtl';
 
 export interface GlowNotePreferences {
   theme: Theme;
@@ -9,8 +9,8 @@ export interface GlowNotePreferences {
 }
 
 export const defaultPreferences: GlowNotePreferences = {
-  theme: "system",
-  direction: "ltr",
+  theme: 'system',
+  direction: 'ltr',
 };
 
 export function getPreferences(): GlowNotePreferences {

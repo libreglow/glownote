@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   useState,
@@ -8,23 +8,20 @@ import {
   useMemo,
   useCallback,
   type ChangeEvent,
-} from "react";
-import { motion } from "motion/react";
-import { cn } from "../../lib/utils";
+} from 'react';
+import { motion } from 'motion/react';
+import { cn } from '../../lib/utils';
 
-
-function GooeyFilter({
-  filterId,
-  blur,
-}: {
-  filterId: string;
-  blur: number;
-}) {
+function GooeyFilter({ filterId, blur }: { filterId: string; blur: number }) {
   return (
     <svg className="absolute hidden h-0 w-0" aria-hidden>
       <defs>
         <filter id={filterId} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation={blur} result="blur" />
+          <feGaussianBlur
+            in="SourceGraphic"
+            stdDeviation={blur}
+            result="blur"
+          />
           <feColorMatrix
             in="blur"
             type="matrix"
@@ -59,7 +56,7 @@ function SearchIcon({ layoutId }: { layoutId: string }) {
 
 const transition = {
   duration: 0.4,
-  type: "spring" as const,
+  type: 'spring' as const,
   bounce: 0.25,
 };
 
@@ -98,7 +95,7 @@ export interface GooeyInputProps {
 }
 
 export function GooeyInput({
-  placeholder = "Type to search...",
+  placeholder = 'Type to search...',
   className,
   classNames,
   collapsedWidth = 115,
@@ -106,13 +103,13 @@ export function GooeyInput({
   expandedOffset = 50,
   gooeyBlur = 5,
   value: valueProp,
-  defaultValue = "",
+  defaultValue = '',
   onValueChange,
   onOpenChange,
   disabled = false,
 }: GooeyInputProps) {
   const reactId = useId();
-  const safeId = reactId.replace(/:/g, "");
+  const safeId = reactId.replace(/:/g, '');
   const filterId = `gooey-filter-${safeId}`;
   const iconLayoutId = `gooey-input-icon-${safeId}`;
   const inputLayoutId = `gooey-input-field-${safeId}`;
@@ -147,7 +144,7 @@ export function GooeyInput({
     if (isExpanded) {
       inputRef.current?.focus();
     } else if (prevExpandedRef.current) {
-      setSearchText("");
+      setSearchText('');
     }
     prevExpandedRef.current = isExpanded;
   }, [isExpanded, setSearchText]);
@@ -176,12 +173,12 @@ export function GooeyInput({
   }, [searchText, setExpanded]);
 
   const surfaceClass =
-    "bg-foreground text-background shadow-sm ring-1 ring-border/60";
+    'bg-foreground text-background shadow-sm ring-1 ring-border/60';
 
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center",
+        'relative flex items-center justify-center',
         className,
         classNames?.root,
       )}
@@ -190,16 +187,19 @@ export function GooeyInput({
 
       <div
         className={cn(
-          "relative flex h-10 items-center justify-center",
+          'relative flex h-10 items-center justify-center',
           classNames?.filterWrap,
         )}
         style={{ filter: `url(#${filterId})` }}
       >
         <motion.div
-          className={cn("flex h-10 items-center justify-center", classNames?.buttonRow)}
+          className={cn(
+            'flex h-10 items-center justify-center',
+            classNames?.buttonRow,
+          )}
           variants={buttonVariants}
           initial="collapsed"
-          animate={isExpanded ? "expanded" : "collapsed"}
+          animate={isExpanded ? 'expanded' : 'collapsed'}
           transition={transition}
         >
           <button
@@ -207,14 +207,12 @@ export function GooeyInput({
             disabled={disabled}
             onClick={handleExpand}
             className={cn(
-              "flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-full px-4 text-sm font-medium outline-none transition-[color,box-shadow] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
+              'flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-full px-4 text-sm font-medium outline-none transition-[color,box-shadow] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50',
               surfaceClass,
               classNames?.trigger,
             )}
           >
-            {!isExpanded ? (
-              <SearchIcon layoutId={iconLayoutId} />
-            ) : null}
+            {!isExpanded ? <SearchIcon layoutId={iconLayoutId} /> : null}
             <motion.input
               layoutId={inputLayoutId}
               ref={inputRef}
@@ -227,10 +225,10 @@ export function GooeyInput({
               disabled={disabled || !isExpanded}
               placeholder={placeholder}
               className={cn(
-                "h-full min-w-0 flex-1 bg-transparent text-sm text-background outline-none",
+                'h-full min-w-0 flex-1 bg-transparent text-sm text-background outline-none',
                 isExpanded
-                  ? "placeholder:text-background/50 dark:placeholder:text-background/45"
-                  : "pointer-events-none placeholder:text-background/80 dark:placeholder:text-background/70",
+                  ? 'placeholder:text-background/50 dark:placeholder:text-background/45'
+                  : 'pointer-events-none placeholder:text-background/80 dark:placeholder:text-background/70',
                 classNames?.input,
               )}
             />
@@ -239,17 +237,17 @@ export function GooeyInput({
 
         <motion.div
           className={cn(
-            "absolute top-1/2 left-0 flex size-10 -translate-y-1/2 items-center justify-center",
+            'absolute top-1/2 left-0 flex size-10 -translate-y-1/2 items-center justify-center',
             classNames?.bubble,
           )}
           variants={iconBubbleVariants}
           initial="collapsed"
-          animate={isExpanded ? "expanded" : "collapsed"}
+          animate={isExpanded ? 'expanded' : 'collapsed'}
           transition={transition}
         >
           <div
             className={cn(
-              "flex size-10 items-center justify-center rounded-full",
+              'flex size-10 items-center justify-center rounded-full',
               surfaceClass,
               classNames?.bubbleSurface,
             )}

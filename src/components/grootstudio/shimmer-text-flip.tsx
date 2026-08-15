@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
-import React, { Children, useEffect, useState, memo } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import type { Transition, Variants } from "motion/react";
-import { cn } from "../../lib/utils";
+import React, { Children, useEffect, useState, memo } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import type { Transition, Variants } from 'motion/react';
+import { cn } from '../../lib/utils';
 
 type MotionElement = typeof motion.p | typeof motion.span | typeof motion.code;
 
 const defaultVariants: Variants = {
   initial: {
-    y: "-40%",
+    y: '-40%',
     opacity: 0,
     scale: 0.98,
-    filter: "blur(4px)",
+    filter: 'blur(4px)',
   },
   animate: {
-    y: "0%",
+    y: '0%',
     opacity: 1,
     scale: 1,
-    filter: "blur(0px)",
+    filter: 'blur(0px)',
   },
   exit: {
-    y: "40%",
+    y: '40%',
     opacity: 0,
     scale: 0.98,
-    filter: "blur(4px)",
-    transition: { ease: "easeOut" },
+    filter: 'blur(4px)',
+    transition: { ease: 'easeOut' },
   },
 };
 
@@ -103,7 +103,7 @@ const ShimmerTextFlip = memo(function ShimmerTextFlip({
           `inline-block shimmer shimmer-once text-muted-foreground font-light tracking-tighter`,
           className,
         )}
-        style={{ "--shimmer-color": glowColor } as React.CSSProperties}
+        style={{ '--shimmer-color': glowColor } as React.CSSProperties}
         initial="initial"
         animate="animate"
         exit="exit"
@@ -116,5 +116,5 @@ const ShimmerTextFlip = memo(function ShimmerTextFlip({
   );
 });
 
-ShimmerTextFlip.displayName = "ShimmerTextFlip";
+ShimmerTextFlip.displayName = 'ShimmerTextFlip';
 export { ShimmerTextFlip };

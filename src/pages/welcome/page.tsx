@@ -1,39 +1,39 @@
-import { Button } from "../../components/ui/button";
-import { ShimmerTextFlip } from "../../components/grootstudio/shimmer-text-flip";
-import { motion } from "motion/react";
+import { Button } from '../../components/ui/button';
+import { ShimmerTextFlip } from '../../components/grootstudio/shimmer-text-flip';
+import { motion } from 'motion/react';
 import {
   CenterMorphModal,
   CenterMorphModalContent,
   CenterMorphModalTrigger,
-} from "../../components/motion/center-morph-modal";
+} from '../../components/motion/center-morph-modal';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../components/motion/select";
-import { useEffect, useState } from "react";
-import { ThemeSwitcher } from "../../components/optics/theme-switcher";
+} from '../../components/motion/select';
+import { useEffect, useState } from 'react';
+import { ThemeSwitcher } from '../../components/optics/theme-switcher';
 import {
   getPreferences,
   savePreferences,
   type Direction,
-} from "../../storage/settings";
-import { useNavigation } from "../../store/navigation-store";
+} from '../../storage/settings';
+import { useNavigation } from '../../store/navigation-store';
 
 const text = [
-  "Think Clearly.",
-  "Write Freely.",
-  "Stay Organized.",
-  "Build Your Knowledge.",
+  'Think Clearly.',
+  'Write Freely.',
+  'Stay Organized.',
+  'Build Your Knowledge.',
 ];
 
-type Theme = "system" | "light" | "dark";
+type Theme = 'system' | 'light' | 'dark';
 
 export default function Welcome() {
-  const [direction, setDirection] = useState<"ltr" | "rtl">("ltr");
-  const [theme, setTheme] = useState<Theme>("system");
+  const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
+  const [theme, setTheme] = useState<Theme>('system');
 
   const navigate = useNavigation((state) => state.navigate);
 
@@ -56,28 +56,28 @@ export default function Welcome() {
   useEffect(() => {
     const root = document.documentElement;
 
-    if (theme === "dark") {
-      root.classList.add("dark");
+    if (theme === 'dark') {
+      root.classList.add('dark');
       return;
     }
 
-    if (theme === "light") {
-      root.classList.remove("dark");
+    if (theme === 'light') {
+      root.classList.remove('dark');
       return;
     }
 
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
 
     const updateSystemTheme = () => {
-      root.classList.toggle("dark", media.matches);
+      root.classList.toggle('dark', media.matches);
     };
 
     updateSystemTheme();
 
-    media.addEventListener("change", updateSystemTheme);
+    media.addEventListener('change', updateSystemTheme);
 
     return () => {
-      media.removeEventListener("change", updateSystemTheme);
+      media.removeEventListener('change', updateSystemTheme);
     };
   }, [theme]);
 
@@ -91,8 +91,8 @@ export default function Welcome() {
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.16) 1px, transparent 0)",
-          backgroundSize: "20px 20px",
+            'radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.16) 1px, transparent 0)',
+          backgroundSize: '20px 20px',
         }}
       />
 
@@ -154,7 +154,7 @@ export default function Welcome() {
                       <Select
                         value={direction}
                         onValueChange={(value) =>
-                          updatePreference("direction", value as Direction)
+                          updatePreference('direction', value as Direction)
                         }
                       >
                         <SelectTrigger className="w-full">
@@ -187,7 +187,7 @@ export default function Welcome() {
                   <Button
                     onClick={() => {
                       navigate({
-                        name: "home",
+                        name: 'home',
                       });
                     }}
                     className="mt-7 h-11 w-full rounded-full"

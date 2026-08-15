@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useControlledState } from "../../hooks/use-controlled-state";
-import { Monitor, Moon, Sun, type LucideIcon } from "lucide-react";
-import { motion } from "motion/react";
+import { useControlledState } from '../../hooks/use-controlled-state';
+import { Monitor, Moon, Sun, type LucideIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 import {
   forwardRef,
   useCallback,
   useEffect,
   useState,
   type ComponentPropsWithoutRef,
-} from "react";
-import { cn } from "../../lib/utils";
+} from 'react';
+import { cn } from '../../lib/utils';
 
-type Theme = "system" | "light" | "dark";
+type Theme = 'system' | 'light' | 'dark';
 
 type ThemeOption = {
   key: Theme;
@@ -22,25 +22,25 @@ type ThemeOption = {
 
 const themes: ThemeOption[] = [
   {
-    key: "system",
+    key: 'system',
     icon: Monitor,
-    label: "System theme",
+    label: 'System theme',
   },
   {
-    key: "light",
+    key: 'light',
     icon: Sun,
-    label: "Light theme",
+    label: 'Light theme',
   },
   {
-    key: "dark",
+    key: 'dark',
     icon: Moon,
-    label: "Dark theme",
+    label: 'Dark theme',
   },
 ];
 
 export interface ThemeSwitcherProps extends Omit<
-  ComponentPropsWithoutRef<"div">,
-  "onChange" | "defaultValue" | "value"
+  ComponentPropsWithoutRef<'div'>,
+  'onChange' | 'defaultValue' | 'value'
 > {
   value?: Theme;
   defaultValue?: Theme;
@@ -50,7 +50,7 @@ export interface ThemeSwitcherProps extends Omit<
 
 export const ThemeSwitcher = forwardRef<HTMLDivElement, ThemeSwitcherProps>(
   (
-    { value, onChange, defaultValue = "system", className = "", ...props },
+    { value, onChange, defaultValue = 'system', className = '', ...props },
     ref,
   ) => {
     const [theme, setTheme] = useControlledState({
@@ -79,7 +79,7 @@ export const ThemeSwitcher = forwardRef<HTMLDivElement, ThemeSwitcherProps>(
       <div
         ref={ref}
         className={cn(
-          "relative isolate flex h-8 rounded-full squircle-none bg-background p-1 ring-1 ring-border",
+          'relative isolate flex h-8 rounded-full squircle-none bg-background p-1 ring-1 ring-border',
           className,
         )}
         {...props}
@@ -99,13 +99,13 @@ export const ThemeSwitcher = forwardRef<HTMLDivElement, ThemeSwitcherProps>(
                 <motion.div
                   className="absolute inset-0 rounded-full squircle-none bg-secondary"
                   layoutId="activeTheme"
-                  transition={{ type: "spring", duration: 0.5 }}
+                  transition={{ type: 'spring', duration: 0.5 }}
                 />
               )}
               <Icon
                 className={cn(
-                  "relative z-10 m-auto h-4 w-4",
-                  isActive ? "text-foreground" : "text-muted-foreground",
+                  'relative z-10 m-auto h-4 w-4',
+                  isActive ? 'text-foreground' : 'text-muted-foreground',
                 )}
               />
             </button>
@@ -116,4 +116,4 @@ export const ThemeSwitcher = forwardRef<HTMLDivElement, ThemeSwitcherProps>(
   },
 );
 
-ThemeSwitcher.displayName = "ThemeSwitcher";
+ThemeSwitcher.displayName = 'ThemeSwitcher';

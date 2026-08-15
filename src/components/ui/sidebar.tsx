@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import {  PanelRight } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import { useState, type ReactNode } from "react";
-import NewPage from "../modules/new-page";
+import { PanelRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState, type ReactNode } from 'react';
+import NewPage from '../modules/new-page';
 
 export interface MacOSSidebarProps {
   items: string[];
@@ -18,7 +18,7 @@ export function MacOSSidebar({
   defaultOpen = true,
   initialSelectedIndex = 0,
   children,
-  className = "",
+  className = '',
 }: MacOSSidebarProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] =
@@ -33,14 +33,14 @@ export function MacOSSidebar({
         animate={{
           width: isOpen ? 240 : 64,
         }}
-        transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
+        transition={{ type: 'spring', bounce: 0.4, duration: 0.8 }}
         className={`p-2 relative z-50 rounded-2xl shrink-0 flex flex-col items-start transition-colors duration-900 ease-out ${
-          isOpen ? "bg-neutral-100 dark:bg-neutral-800" : "bg-transparent"
+          isOpen ? 'bg-neutral-100 dark:bg-neutral-800' : 'bg-transparent'
         }`}
       >
         <div
           className={`flex items-center w-full  ${
-            isOpen ? "justify-end gap-4" : "justify-center"
+            isOpen ? 'justify-end gap-4' : 'justify-center'
           } text-neutral-700 dark:text-neutral-300 p-2 shrink-0`}
         >
           <AnimatePresence>
@@ -50,16 +50,15 @@ export function MacOSSidebar({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.2 }}
-
               >
-               <NewPage />
+                <NewPage />
               </motion.div>
             )}
           </AnimatePresence>
           <motion.div
             layout
             onClick={() => {
-                setIsOpen(!isOpen)
+              setIsOpen(!isOpen);
             }}
             className="shrink-0 flex items-center justify-center"
           >
@@ -70,10 +69,10 @@ export function MacOSSidebar({
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, filter: "blur(4px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, filter: "blur(4px)" }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              initial={{ opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, filter: 'blur(4px)' }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
               className="flex flex-col gap-2 mt-4 w-full relative z-10 whitespace-nowrap"
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -91,15 +90,15 @@ export function MacOSSidebar({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
                       />
                     )}
                   </AnimatePresence>
                   <p
                     className={`relative z-10 px-5 py-3 tracking-tight ${
                       selectedIndex === index
-                        ? "text-neutral-900 dark:text-neutral-100 font-medium"
-                        : "text-neutral-700 dark:text-neutral-200/50"
+                        ? 'text-neutral-900 dark:text-neutral-100 font-medium'
+                        : 'text-neutral-700 dark:text-neutral-200/50'
                     }`}
                   >
                     {item}
@@ -113,7 +112,7 @@ export function MacOSSidebar({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{
-                          type: "spring",
+                          type: 'spring',
                           stiffness: 350,
                           damping: 30,
                         }}

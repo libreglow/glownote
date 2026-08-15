@@ -1,10 +1,10 @@
-import React, { memo, useMemo } from "react";
-import { motion, MotionProps } from "motion/react";
-import { cn } from "../../lib/utils";
+import React, { memo, useMemo } from 'react';
+import { motion, MotionProps } from 'motion/react';
+import { cn } from '../../lib/utils';
 
 interface GradientTextProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
-  keyof MotionProps | "style"
+  keyof MotionProps | 'style'
 > {
   className?: string;
   children: React.ReactNode;
@@ -46,27 +46,27 @@ const keyframesStyle = `
 `;
 
 const ORB_BASE =
-  "groot-orb pointer-events-none absolute h-[30vw] w-[30vw] mix-blend-overlay blur-lg";
+  'groot-orb pointer-events-none absolute h-[30vw] w-[30vw] mix-blend-overlay blur-lg';
 
 const GradientText = memo(function GradientText({
   className,
   children,
-  as: Component = "span",
-  colors = "#cc0066, #1aff53, #004d99, #f5f56b, #a600e6",
+  as: Component = 'span',
+  colors = '#cc0066, #1aff53, #004d99, #f5f56b, #a600e6',
   style,
   ...props
 }: GradientTextProps) {
   const MotionComponent = useMemo(() => motion.create(Component), [Component]);
 
   const colorArray = useMemo(
-    () => colors.split(",").map((c) => c.trim()),
+    () => colors.split(',').map((c) => c.trim()),
     [colors],
   );
 
   return (
     <MotionComponent
       className={cn(
-        "relative inline-flex overflow-hidden bg-foreground text-transparent bg-clip-text py-1",
+        'relative inline-flex overflow-hidden bg-foreground text-transparent bg-clip-text py-1',
         className,
       )}
       style={style}
@@ -81,28 +81,28 @@ const GradientText = memo(function GradientText({
         <span
           className={cn(
             ORB_BASE,
-            "-top-1/2 animate-[gradient-border_6s_ease-in-out_infinite,gradient-1_12s_ease-in-out_infinite_alternate]",
+            '-top-1/2 animate-[gradient-border_6s_ease-in-out_infinite,gradient-1_12s_ease-in-out_infinite_alternate]',
           )}
           style={{ backgroundColor: colorArray[0] }}
         />
         <span
           className={cn(
             ORB_BASE,
-            "right-0 top-0 animate-[gradient-border_6s_ease-in-out_infinite,gradient-2_12s_ease-in-out_infinite_alternate]",
+            'right-0 top-0 animate-[gradient-border_6s_ease-in-out_infinite,gradient-2_12s_ease-in-out_infinite_alternate]',
           )}
           style={{ backgroundColor: colorArray[1] }}
         />
         <span
           className={cn(
             ORB_BASE,
-            "bottom-0 left-0 animate-[gradient-border_6s_ease-in-out_infinite,gradient-3_12s_ease-in-out_infinite_alternate]",
+            'bottom-0 left-0 animate-[gradient-border_6s_ease-in-out_infinite,gradient-3_12s_ease-in-out_infinite_alternate]',
           )}
           style={{ backgroundColor: colorArray[2] }}
         />
         <span
           className={cn(
             ORB_BASE,
-            "-bottom-1/2 right-0 animate-[gradient-border_6s_ease-in-out_infinite,gradient-4_12s_ease-in-out_infinite_alternate]",
+            '-bottom-1/2 right-0 animate-[gradient-border_6s_ease-in-out_infinite,gradient-4_12s_ease-in-out_infinite_alternate]',
           )}
           style={{ backgroundColor: colorArray[3] }}
         />
@@ -111,6 +111,6 @@ const GradientText = memo(function GradientText({
   );
 });
 
-GradientText.displayName = "GradientText";
+GradientText.displayName = 'GradientText';
 
 export { GradientText };
