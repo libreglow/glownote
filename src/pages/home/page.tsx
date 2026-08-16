@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Input } from '../../components/ui/input';
 import { invoke } from '@tauri-apps/api/core';
 import { db } from '../../lib/database';
+import { useNavigation } from '../../store/navigation-store';
+
 
 type Project = {
   id: string;
@@ -54,6 +56,8 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigation((state) => state.navigate);
+
   async function loadProjects(pageNumber: number) {
     if (isLoading || !hasMore) return;
 
@@ -243,13 +247,19 @@ export default function Home() {
             <RotateCcwClock className="h-4 w-4 text-muted-foreground" />
 
             <p className="text-sm font-semibold text-muted-foreground">
-              Recent Visits
+              Projects
             </p>
           </div>
 
           <div className="max-h-[320px] overflow-y-auto divide-y rounded-xl border border-border bg-background">
             {projects.map((project) => (
               <button
+                onClick={() => {
+                  navigate({
+                        name: 'editor',
+                        params : project.id,
+                  });
+                }}
                 key={project.id}
                 type="button"
                 className="flex w-full items-center gap-4 px-4 py-4 text-left transition-colors hover:bg-muted/50"

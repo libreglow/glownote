@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type Route = { name: 'welcome' } | { name: 'home' } | { name: 'editor' };
+export type Route = { name: 'welcome' } | { name: 'home' } | { name: 'editor' , params : string };
 
 interface NavigationStore {
   current: Route;
