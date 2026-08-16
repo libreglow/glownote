@@ -1,5 +1,6 @@
 mod modules;
 
+use modules::fs::documents::{readDocument, saveDocument};
 use modules::fs::save_projects::newProject;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -49,7 +50,9 @@ pub fn run() {
         )
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
-            newProject
+            newProject,
+            readDocument,
+            saveDocument
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

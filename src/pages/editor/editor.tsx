@@ -3,12 +3,14 @@ import { useNavigation } from '../../store/navigation-store';
 import { db } from "../../lib/database";
 import { useEffect, useState } from "react";
 import { Page } from '@/types';
+import MarkdownEditor from '../../components/modules/markdown-editor';
 
 export default function Editor() {
   const current = useNavigation((state) => state.current);
 
   const [pages, setPages] = useState<Page[]>([]);
   const [_, setIsLoading] = useState(true);
+  const [selectedPage, setSelectedPage] = useState<Page | null>(null);
 
   
 
@@ -73,8 +75,15 @@ export default function Editor() {
         id={current.params}
         items={items}
         className="h-[90%] w-full"
+        onSelect={(index) => setSelectedPage(pages[index] ?? null)}
       >
-        Current route: {current.name} {current.params}
+        {selectedPage ? (
+          <MarkdownEditor documentPath={selectedPage.document_path} />
+        ) : (
+          <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+            Select a page to start editing
+          </div>
+        )}
       </MacOSSidebar>
     </div>
   );

@@ -11,7 +11,8 @@ export interface MacOSSidebarProps {
   initialSelectedIndex?: number;
   children?: ReactNode;
   className?: string;
-  id : string,
+  id: string;
+  onSelect?: (index: number) => void;
 }
 
 export function MacOSSidebar({
@@ -20,7 +21,8 @@ export function MacOSSidebar({
   initialSelectedIndex = 0,
   children,
   className = '',
-  id = "",
+  id = '',
+  onSelect,
 }: MacOSSidebarProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] =
@@ -83,7 +85,10 @@ export function MacOSSidebar({
                   key={item}
                   className="relative cursor-pointer"
                   onMouseEnter={() => setHoveredIndex(index)}
-                  onClick={() => setSelectedIndex(index)}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    onSelect?.(index);
+                  }}
                 >
                   <AnimatePresence>
                     {selectedIndex === index && (
