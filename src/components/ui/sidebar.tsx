@@ -21,7 +21,6 @@ export function MacOSSidebar({
   initialSelectedIndex = 0,
   children,
   className = '',
-  id = '',
   onSelect,
 }: MacOSSidebarProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

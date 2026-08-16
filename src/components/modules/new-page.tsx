@@ -13,7 +13,6 @@ const NewPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [title, setTitle] = useState('');
-  const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null); // emoji character
   const [selectedUnified, setSelectedUnified] = useState<string | null>(null); // unified codepoint
 
   return (
@@ -67,7 +66,6 @@ const NewPage = () => {
                 <EmojiPicker
                   className="w-full"
                   onEmojiClick={(emojiObject) => {
-                    setSelectedEmoji(emojiObject.emoji);
                     setSelectedUnified(emojiObject.unified);
                   }}
                 />

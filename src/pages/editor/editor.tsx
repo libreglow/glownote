@@ -19,6 +19,8 @@ export default function Editor() {
       return;
     }
 
+    const projectId = current.params;
+
     async function loadPages() {
       try {
         setIsLoading(true);
@@ -39,7 +41,7 @@ export default function Editor() {
           WHERE project_id = ?
           ORDER BY position ASC, created_at ASC
           `,
-          [current.params]
+          [projectId]
         );
 
         setPages(result);

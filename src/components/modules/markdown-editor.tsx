@@ -1,5 +1,9 @@
 import { invoke } from '@tauri-apps/api/core';
 import { useEffect, useRef, useState } from 'react';
+import type { GlowRoot } from '../../markdown/glowmark/nodes';
+import { parseMarkdown } from '../../markdown/glowmark/parser';
+import { stringifyMarkdown } from '../../markdown/glowmark/serializer';
+import MarkdownEngine from '../../markdown/engine';
 
 interface MarkdownEditorProps {
   documentPath: string;
@@ -7,11 +11,9 @@ interface MarkdownEditorProps {
 
 export default function MarkdownEditor({ documentPath }: MarkdownEditorProps) {
   const [content, setContent] = useState('');
+  const [ast, setAst] = useState<GlowRoot | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const isDirty = useRef(false);
-  const editorLoaded = useRef(false);
-
-
 
   useEffect(() => {
     let cancelled = false;
@@ -26,6 +28,7 @@ export default function MarkdownEditor({ documentPath }: MarkdownEditorProps) {
 
         if (!cancelled) {
           setContent(text);
+          setAst(parseMarkdown(text));
           isDirty.current = false;
         }
       } catch (error) {
@@ -38,18 +41,13 @@ export default function MarkdownEditor({ documentPath }: MarkdownEditorProps) {
     }
 
     setContent('');
+    setAst(null);
     load();
 
     return () => {
       cancelled = true;
     };
   }, [documentPath]);
-
-  useEffect(() => {
-    editorLoaded.current = false;
-  }, [documentPath]);
-
-
 
   useEffect(() => {
     if (isLoading || !isDirty.current) {
@@ -65,7 +63,7 @@ export default function MarkdownEditor({ documentPath }: MarkdownEditorProps) {
     return () => clearTimeout(timeout);
   }, [content, documentPath, isLoading]);
 
-  if (isLoading) {
+  if (isLoading || !ast) {
     return (
       <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
         Loading...
@@ -76,6 +74,9 @@ export default function MarkdownEditor({ documentPath }: MarkdownEditorProps) {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-background">
       <div className="flex-1 overflow-auto">
+        <MarkdownEngine
+          
+        />
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ function App() {
       return <Home />;
 
     case 'editor':
-      return <Editor id="" />;
+      return <Editor />;
 
     default:
       return null;

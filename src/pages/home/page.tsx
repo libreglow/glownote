@@ -51,8 +51,8 @@ export default function Home() {
   const [title, setTitle] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
-  const [page, setPage] = useState(0);
+  const [isLoadingProjects] = useState(true);
+  const [, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
