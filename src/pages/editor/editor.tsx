@@ -1,12 +1,80 @@
 import { MacOSSidebar } from '../../components/ui/sidebar';
+import { useNavigation } from '../../store/navigation-store';
+import { db } from "../../lib/database";
+import { useEffect, useState } from "react";
+import { Page } from '@/types';
 
-const DEMO_ITEMS = ['Canvas 1', 'Canvas 2', 'Canvas 3', 'Canvas 4', 'Canvas 5'];
+export default function Editor() {
+  const current = useNavigation((state) => state.current);
 
-export default function Editor({ id }: { id: string }) {
+  const [pages, setPages] = useState<Page[]>([]);
+  const [_, setIsLoading] = useState(true);
+
+  
+
+  useEffect(() => {
+    if (current.name !== "editor" || !current.params) {
+      return;
+    }
+
+    async function loadPages() {
+      try {
+        setIsLoading(true);
+
+        const result = await db.select<Page[]>(
+          `
+          SELECT
+            id,
+            project_id,
+            title,
+            emoji,
+            document_path,
+            parent_id,
+            position,
+            created_at,
+            updated_at
+          FROM pages
+          WHERE project_id = ?
+          ORDER BY position ASC, created_at ASC
+          `,
+          [current.params]
+        );
+
+        setPages(result);
+      } catch (error) {
+        console.error("Failed to load pages:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadPages();
+  }, [current]);
+
+  if (current.name !== "editor" || !current.params) {
+    return (
+      <div>
+        Page not found
+      </div>
+    );
+  }
+
+  const items = pages.map((page) => {
+    if (page.emoji) {
+      return `${page.emoji} ${page.title}`;
+    }
+
+    return page.title;
+  });
+
   return (
     <div className=" h-[90%] w-full mt-10">
-      <MacOSSidebar items={DEMO_ITEMS} className="h-[90%] w-full">
-        ة{id}
+      <MacOSSidebar
+        id={current.params}
+        items={items}
+        className="h-[90%] w-full"
+      >
+        Current route: {current.name} {current.params}
       </MacOSSidebar>
     </div>
   );

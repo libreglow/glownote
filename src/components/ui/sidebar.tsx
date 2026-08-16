@@ -11,6 +11,7 @@ export interface MacOSSidebarProps {
   initialSelectedIndex?: number;
   children?: ReactNode;
   className?: string;
+  id : string,
 }
 
 export function MacOSSidebar({
@@ -19,6 +20,7 @@ export function MacOSSidebar({
   initialSelectedIndex = 0,
   children,
   className = '',
+  id = "",
 }: MacOSSidebarProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] =
